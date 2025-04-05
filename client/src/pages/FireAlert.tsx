@@ -87,8 +87,11 @@ const VideoFeed = ({ title, status, source }: VideoFeedProps) => {
             src={source} 
             className="w-full h-full object-cover" 
             autoPlay 
-            muted 
-            loop
+            muted
+            onEnded={(e) => {
+              e.currentTarget.pause();
+              e.currentTarget.currentTime = 0;
+            }}
           />
           
           {/* Overlay for video status */}
