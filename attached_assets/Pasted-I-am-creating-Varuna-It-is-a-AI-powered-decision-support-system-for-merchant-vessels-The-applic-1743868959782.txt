@@ -1,0 +1,20 @@
+I am creating Varuna. It is a AI powered decision support system for merchant vessels.
+
+The application consists of a Overview, Navigation Control Page, Fire Detection, Object Detection (for Threat Analysis).
+
+All pages would consist of a Navbar & Sidebar (named Dashboard (activated on clicking an icon)).
+
+Nav Bar - A Logo for Varuna. NavLinks: Analytics, About, Settings ; New Route(Add) Button, Profile. Set the Logo to extreme left - leave some margin.
+
+Below the logo and the navbar, there should be an icon (three lines) representing a closed sidebar. On clicking it will open up, and show the links of pages named - Overview, Navigation Control, Fire Alert. In the bottom of the sidebar, there's a section where Vessel Status is shown, below the status it would be shown online. On clicking on any of the page, that page would open.
+
+Overview Page consists of the following :
+The first Div would have two sections. The left section there would be a 3D Ship over a water body(ocean) built using Three.js. You could revolve and look over the ship. The right section would be the Ship's Health. The Ship Health would show ship's features and tell their health - Engine, Fuel, and Hull Weathering. Each of the feature would have a bar representing percentage. After mentioning the ship's features, it would show the overall health at the bottom of the right section in terms of percentage. Keep them as placeholders.
+
+Below that div, there would be a section which would have two divs side by side.
+
+The first div (60%), second div(40%).
+
+The first div would have two divs side by side. Out of those two, one div would be titled AI Insights representing all the models in our application, and show Active in front of them. Models are: Navigation Control, Fire Alert, Threat Detection, Weather Detection. The other div would show fuel efficiency in hours and percentage showing how many hours of fuel is left.
+
+The second div would show a real time AIS Radar rotating displaying points.
