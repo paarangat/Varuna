@@ -1,0 +1,75 @@
+I want to create an interactive 3D globe in JavaScript using Three.js. My goal is to:
+
+Display a realistic Earth texture on a sphere (like NASA’s Blue Marble).
+
+Mark specific real-world cities on the globe, such as Shanghai, Los Angeles, and Rotterdam.
+
+Show city markers (e.g., small pins or glowing dots) at the correct latitude and longitude coordinates.
+
+Optionally, draw arcs/lines between these cities to illustrate routes.
+
+Enable mouse interaction, allowing the user to:
+
+Click and drag to rotate the globe.
+
+Zoom in/out.
+
+Hover over city markers to see city names or additional information.
+
+Detailed Requirements:
+
+Project Setup (HTML/CSS/JS)
+
+Provide a single HTML file with the basic structure.
+
+Include a <canvas> or a <div> where the Three.js renderer will be placed.
+
+Include any necessary scripts (e.g., a CDN link or import for Three.js).
+
+Provide minimal but functional CSS to ensure the canvas fills the screen or is appropriately sized.
+
+Three.js Scene
+
+Create a scene, camera, and renderer.
+
+Make the camera orbitable or provide instructions on how to rotate/zoom (using OrbitControls or a similar library).
+
+Add lighting if needed (e.g., ambient light, directional light) so the globe is well-illuminated.
+
+Globe Geometry and Texture
+
+Use a SphereGeometry for Earth.
+
+Apply a high-resolution Earth texture map (e.g., from NASA or another public domain source).
+
+Optionally include a bump map or normal map for more realistic Earth features.
+
+Position and scale the globe so it’s centered in the scene.
+
+City Markers
+
+Provide an example array of city objects, each containing:
+
+name (string, e.g., "Shanghai")
+
+lat (latitude in degrees)
+
+lng (longitude in degrees)
+
+Convert lat/lng to 3D coordinates on the sphere.
+
+Place small spheres or pins on those coordinates.
+
+If possible, allow a hover or click event on each marker to show a small popup or console log with the city name.
+
+Routes/Arcs (Optional)
+
+If possible, show arcs between certain cities to represent flight paths or shipping routes.
+
+Animate the arcs or color them distinctly (e.g., bright color or dashed line).
+
+Interaction
+
+Use OrbitControls (or a similar library) to let the user click and drag to rotate, and scroll to zoom.
+
+Make sure the globe can be freely rotated in any direction.
