@@ -13,6 +13,11 @@ import lowFireVideoSrc from "@assets/Low.mp4";
 import couldBeFireVideoSrc from "@assets/Could Be.mp4";
 import fireDetectedVideoSrc from "@assets/Fire.mp4";
 
+// Import thermal images
+import engineThermalImageSrc from "@assets/Engine.jpg";
+import bridgeThermalImageSrc from "@assets/Bridge.jpg";
+import cargoThermalImageSrc from "@assets/Cargo.jpg";
+
 // Status indicator component for cameras and feeds
 type StatusType = "safe" | "warning" | "danger";
 
@@ -47,9 +52,13 @@ interface VideoFeedProps {
   title: string;
   status: StatusType;
   source: string;
+  thermalImage?: string;
 }
 
-const VideoFeed = ({ title, status, source }: VideoFeedProps) => {
+const VideoFeed = ({ title, status, source, thermalImage }: VideoFeedProps) => {
+  // State to track hover state
+  const [isHovered, setIsHovered] = useState(false);
+  
   // Map status to text
   const statusText = {
     safe: "Safe",
@@ -81,30 +90,49 @@ const VideoFeed = ({ title, status, source }: VideoFeedProps) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded overflow-hidden bg-black h-64 md:h-80 relative">
-          {/* Video element */}
-          <video 
-            src={source} 
-            className="w-full h-full object-cover" 
-            autoPlay 
-            muted
-            onEnded={(e) => {
-              e.currentTarget.pause();
-            }}
-          />
-          
-          {/* Overlay for video status */}
-          <div className={`absolute inset-0 flex items-center justify-center ${
-            status === "danger" ? "bg-red-900/20" : 
-            status === "warning" ? "bg-yellow-900/20" : 
-            "bg-blue-900/20"
-          }`}>
-            {status === "danger" && (
-              <div className="animate-pulse">
-                <Flame className="h-12 w-12 text-red-500" />
+        <div 
+          className="rounded overflow-hidden bg-black h-64 md:h-80 relative cursor-pointer" 
+          onMouseEnter={() => thermalImage && setIsHovered(true)}
+          onMouseLeave={() => thermalImage && setIsHovered(false)}
+        >
+          {/* Show thermal image on hover */}
+          {isHovered && thermalImage ? (
+            <div className="absolute inset-0 z-20">
+              <img 
+                src={thermalImage} 
+                alt={`${title} Thermal View`}
+                className="w-full h-full object-cover"
+              />
+              {/* Tooltip label */}
+              <div className="absolute top-2 right-2 bg-black/70 text-white text-xs py-1 px-2 rounded">
+                Thermal Image
               </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <>
+              {/* Video element (default view) */}
+              <video 
+                src={source} 
+                className="w-full h-full object-cover" 
+                autoPlay 
+                muted
+                loop
+              />
+              
+              {/* Overlay for video status */}
+              <div className={`absolute inset-0 flex items-center justify-center ${
+                status === "danger" ? "bg-red-900/20" : 
+                status === "warning" ? "bg-yellow-900/20" : 
+                "bg-blue-900/20"
+              }`}>
+                {status === "danger" && (
+                  <div className="animate-pulse">
+                    <Flame className="h-12 w-12 text-red-500" />
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -226,22 +254,25 @@ export default function FireAlert() {
       </div>
       
       {/* Live Feed Section - Increased dimensions */}
-      <h2 className="text-xl font-semibold text-[#E0E1DD] mb-4">Live Thermal Feeds</h2>
+      <h2 className="text-xl font-semibold text-[#E0E1DD] mb-4">Live Thermal Feeds <span className="text-sm font-normal text-gray-400">(Hover to view thermal image)</span></h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <VideoFeed 
           title="Engine Room" 
           status="warning" 
           source={couldBeFireVideoSrc}
+          thermalImage={engineThermalImageSrc}
         />
         <VideoFeed 
           title="Bridge" 
           status="danger" 
           source={fireDetectedVideoSrc}
+          thermalImage={bridgeThermalImageSrc}
         />
         <VideoFeed 
           title="Cargo Bay" 
           status="safe" 
           source={lowFireVideoSrc}
+          thermalImage={cargoThermalImageSrc}
         />
       </div>
       
