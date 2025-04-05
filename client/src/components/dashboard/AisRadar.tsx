@@ -53,7 +53,7 @@ export default function AisRadar() {
           ></div>
         </div>
       </div>
-      <style jsx>{`
+      <style jsx="true">{`
         @keyframes rotate {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
