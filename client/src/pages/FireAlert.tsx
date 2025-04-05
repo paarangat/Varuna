@@ -92,8 +92,22 @@ const VideoFeed = ({ title, status, source, thermalImage }: VideoFeedProps) => {
       <CardContent>
         <div 
           className="rounded overflow-hidden bg-black h-64 md:h-80 relative cursor-pointer" 
-          onMouseEnter={() => thermalImage && setIsHovered(true)}
-          onMouseLeave={() => thermalImage && setIsHovered(false)}
+          onMouseEnter={() => {
+            if (thermalImage) {
+              setIsHovered(true);
+            } else {
+              const video = document.getElementById(`video-${title}`) as HTMLVideoElement;
+              if (video) video.pause();
+            }
+          }}
+          onMouseLeave={() => {
+            if (thermalImage) {
+              setIsHovered(false);
+            } else {
+              const video = document.getElementById(`video-${title}`) as HTMLVideoElement;
+              if (video) video.play();
+            }
+          }}
         >
           {/* Show thermal image on hover */}
           {isHovered && thermalImage ? (
@@ -112,11 +126,16 @@ const VideoFeed = ({ title, status, source, thermalImage }: VideoFeedProps) => {
             <>
               {/* Video element (default view) */}
               <video 
+                id={`video-${title}`}
                 src={source} 
                 className="w-full h-full object-cover" 
                 autoPlay 
                 muted
-                loop
+                playsInline
+                onEnded={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  video.pause();
+                }}
               />
               
               {/* Overlay for video status */}
