@@ -51,16 +51,16 @@ export default function NavigationControl() {
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left column */}
-        <div className="space-y-6 lg:col-span-8">
+        <div className="space-y-6 lg:col-span-2">
           <SimplifiedGlobe 
             sourcePort={sourcePort} 
             destinationPort={destinationPort}
             onRouteCreated={handleRouteCreated}
           />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77] md:col-span-2">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg">Port Selection</CardTitle>
@@ -91,7 +91,7 @@ export default function NavigationControl() {
                 )}
               </CardContent>
             </Card>
-
+            
             <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
               <Tabs defaultValue="table" className="w-full">
                 <CardHeader className="pb-0">
@@ -144,13 +144,13 @@ export default function NavigationControl() {
         </div>
 
         {/* Right column */}
-        <div className="space-y-6 lg:col-span-4">
+        <div className="space-y-6">
           <CourseCorrection 
             courseData={courseData}
             onApplyCorrection={handleApplyCorrection}
             onIgnoreRecommendation={handleIgnoreRecommendation}
           />
-
+          
           <NavigationMap
             checkpoints={checkpoints}
             routes={routes}
