@@ -42,10 +42,12 @@ export default function AisRadar() {
           }}
         >
           <div 
-            className="radar-line absolute top-0 left-1/2 w-1/2 h-full"
+            className="radar-line absolute w-[50%] h-[1px]"
             style={{
-              background: 'linear-gradient(90deg, transparent 49%, rgba(224,225,221,0.8) 50%, transparent 51%)',
-              transformOrigin: 'left center',
+              background: 'linear-gradient(90deg, rgba(224,225,221,0.8) 0%, rgba(224,225,221,0.1) 100%)',
+              transformOrigin: 'left',
+              left: '50%',
+              top: '50%',
               animation: 'rotate 4s infinite linear'
             }}
           ></div>
