@@ -6,7 +6,7 @@ import {
   AlertCircle, 
   CheckCircle2
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // Import video assets for the demo
 import lowFireVideoSrc from "@assets/Low.mp4";
@@ -14,7 +14,7 @@ import couldBeFireVideoSrc from "@assets/Could Be.mp4";
 import fireDetectedVideoSrc from "@assets/Fire.mp4";
 
 // Status indicator component for cameras and feeds
-type StatusType = "active" | "inactive" | "safe" | "warning" | "danger";
+type StatusType = "safe" | "warning" | "danger";
 
 interface StatusIndicatorProps {
   status: StatusType;
@@ -25,8 +25,6 @@ interface StatusIndicatorProps {
 const StatusIndicator = ({ status, size = "md" }: StatusIndicatorProps) => {
   // Map status to color
   const statusColors: Record<StatusType, string> = {
-    active: "bg-green-500",
-    inactive: "bg-red-500",
     safe: "bg-blue-500",
     warning: "bg-yellow-500",
     danger: "bg-red-500"
@@ -47,7 +45,7 @@ const StatusIndicator = ({ status, size = "md" }: StatusIndicatorProps) => {
 // Video Feed component
 interface VideoFeedProps {
   title: string;
-  status: "safe" | "warning" | "danger";
+  status: StatusType;
   source: string;
 }
 
@@ -83,7 +81,7 @@ const VideoFeed = ({ title, status, source }: VideoFeedProps) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded overflow-hidden bg-black h-48 md:h-60 relative">
+        <div className="rounded overflow-hidden bg-black h-64 md:h-80 relative">
           {/* Video element */}
           <video 
             src={source} 
@@ -154,11 +152,11 @@ const AlertNotification = ({ message, timestamp, level }: AlertNotificationProps
 
 // Main Fire Alert component
 export default function FireAlert() {
-  // State for thermal camera statuses
+  // State for thermal camera statuses - using green dot for active cameras
   const [thermalCameras, setThermalCameras] = useState([
-    { location: "Engine Room", status: "active" as StatusType },
-    { location: "Bridge", status: "active" as StatusType },
-    { location: "Cargo Bay", status: "active" as StatusType }
+    { location: "Engine Room", isActive: true },
+    { location: "Bridge", isActive: true },
+    { location: "Cargo Bay", isActive: true }
   ]);
   
   // State for fire suppression statuses
@@ -180,72 +178,52 @@ export default function FireAlert() {
     <>
       <h1 className="text-2xl font-semibold text-[#E0E1DD] mb-6">Fire Alert System</h1>
       
-      {/* Top Section with three cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      {/* Top Section with Thermal Camera Status and Status Indicators */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {/* Thermal Camera Locations */}
         <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
+          <CardHeader className="py-3">
+            <CardTitle className="flex items-center text-base">
               <Thermometer className="mr-2 h-5 w-5" /> Thermal Camera Status
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          <CardContent className="pt-0">
+            <div className="grid grid-cols-3 gap-2">
               {thermalCameras.map((camera, index) => (
-                <div key={index} className="flex justify-between items-center bg-[#1B263B] p-3 rounded">
-                  <div className="flex items-center">
-                    <StatusIndicator status={camera.status} />
-                    <span className="ml-2">{camera.location}</span>
-                  </div>
-                  <span className={camera.status === "active" ? "text-green-500" : "text-red-500"}>
-                    {camera.status === "active" ? "Active" : "Non-Active"}
-                  </span>
+                <div key={index} className="flex items-center bg-[#1B263B] p-2 rounded">
+                  <div className={`w-2 h-2 rounded-full ${camera.isActive ? 'bg-green-500' : 'bg-red-500'} mr-2`}></div>
+                  <span className="text-sm">{camera.location}</span>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
         
-        {/* Alert Notification Card */}
+        {/* Status Indicators Legend */}
         <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <AlertCircle className="mr-2 h-5 w-5" /> Alert Notifications
-            </CardTitle>
+          <CardHeader className="py-3">
+            <CardTitle className="text-base">Status Indicators</CardTitle>
           </CardHeader>
-          <CardContent>
-            <AlertNotification 
-              message={alertNotification.message}
-              timestamp={alertNotification.timestamp}
-              level={alertNotification.level}
-            />
-          </CardContent>
-        </Card>
-        
-        {/* Fire Suppression Status */}
-        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <CheckCircle2 className="mr-2 h-5 w-5" /> Fire Suppression Status
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {suppressionSystems.map((system, index) => (
-                <div key={index} className="flex justify-between items-center bg-[#1B263B] p-3 rounded">
-                  <div className="flex items-center">
-                    <StatusIndicator status="active" />
-                    <span className="ml-2">{system.name}</span>
-                  </div>
-                  <span className="text-green-500">{system.status}</span>
-                </div>
-              ))}
+          <CardContent className="pt-0">
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex items-center">
+                <StatusIndicator status="safe" />
+                <span className="ml-2 text-sm">Safe</span>
+              </div>
+              <div className="flex items-center">
+                <StatusIndicator status="warning" />
+                <span className="ml-2 text-sm">Could be Fire</span>
+              </div>
+              <div className="flex items-center">
+                <StatusIndicator status="danger" />
+                <span className="ml-2 text-sm">Fire Detected</span>
+              </div>
             </div>
           </CardContent>
         </Card>
       </div>
       
-      {/* Live Feed Section */}
+      {/* Live Feed Section - Increased dimensions */}
       <h2 className="text-xl font-semibold text-[#E0E1DD] mb-4">Live Thermal Feeds</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <VideoFeed 
@@ -265,36 +243,43 @@ export default function FireAlert() {
         />
       </div>
       
-      {/* Legend for status indicators */}
-      <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77] mt-6">
-        <CardHeader>
-          <CardTitle className="text-base">Status Indicators</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div className="flex items-center">
-              <StatusIndicator status="active" />
-              <span className="ml-2 text-sm">Active</span>
+      {/* Bottom Section with Alert Notification and Fire Suppression Status */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Alert Notification Card */}
+        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
+          <CardHeader className="py-3">
+            <CardTitle className="flex items-center text-base">
+              <AlertCircle className="mr-2 h-5 w-5" /> Alert Notifications
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <AlertNotification 
+              message={alertNotification.message}
+              timestamp={alertNotification.timestamp}
+              level={alertNotification.level}
+            />
+          </CardContent>
+        </Card>
+        
+        {/* Fire Suppression Status */}
+        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
+          <CardHeader className="py-3">
+            <CardTitle className="flex items-center text-base">
+              <CheckCircle2 className="mr-2 h-5 w-5" /> Fire Suppression Status
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="grid grid-cols-2 gap-2">
+              {suppressionSystems.map((system, index) => (
+                <div key={index} className="flex items-center justify-between bg-[#1B263B] p-2 rounded">
+                  <span className="text-sm">{system.name}</span>
+                  <span className="text-sm text-green-500">{system.status}</span>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center">
-              <StatusIndicator status="inactive" />
-              <span className="ml-2 text-sm">Inactive</span>
-            </div>
-            <div className="flex items-center">
-              <StatusIndicator status="safe" />
-              <span className="ml-2 text-sm">Safe</span>
-            </div>
-            <div className="flex items-center">
-              <StatusIndicator status="warning" />
-              <span className="ml-2 text-sm">Could be Fire</span>
-            </div>
-            <div className="flex items-center">
-              <StatusIndicator status="danger" />
-              <span className="ml-2 text-sm">Fire Detected</span>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </>
   );
 }
