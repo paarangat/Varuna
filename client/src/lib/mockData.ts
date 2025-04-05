@@ -62,29 +62,74 @@ export const ports = [
 export const checkpoints = [
   {
     id: "cp-1",
-    name: "CP 1",
+    name: "Departure",
     position: { x: 0.2, y: 0.3 },
-    isCurrent: true
+    isCurrent: true,
+    status: 'current',
+    eta: '12:30 UTC'
   },
   {
     id: "cp-2",
-    name: "CP 2",
-    position: { x: 0.35, y: 0.2 }
+    name: "Waypoint Alpha",
+    position: { x: 0.35, y: 0.2 },
+    status: 'pending',
+    eta: '14:45 UTC'
   },
   {
     id: "cp-3",
-    name: "CP 3",
-    position: { x: 0.5, y: 0.35 }
+    name: "Channel Marker",
+    position: { x: 0.5, y: 0.35 },
+    status: 'pending',
+    eta: '17:15 UTC'
   },
   {
     id: "cp-4",
-    name: "CP 4",
-    position: { x: 0.65, y: 0.5 }
+    name: "Shipping Lane",
+    position: { x: 0.65, y: 0.5 },
+    status: 'pending',
+    eta: '19:30 UTC'
   },
   {
     id: "cp-5",
-    name: "CP 5",
-    position: { x: 0.85, y: 0.6 }
+    name: "Port Approach",
+    position: { x: 0.85, y: 0.6 },
+    status: 'pending',
+    eta: '22:00 UTC'
+  },
+  {
+    id: "cp-6",
+    name: "Alternative Route",
+    position: { x: 0.4, y: 0.45 },
+    status: 'pending',
+    eta: '16:30 UTC'
+  },
+  {
+    id: "cp-7",
+    name: "Weather Station",
+    position: { x: 0.6, y: 0.3 },
+    status: 'pending',
+    eta: '18:15 UTC'
+  },
+  {
+    id: "cp-8",
+    name: "Deep Water Route",
+    position: { x: 0.75, y: 0.4 },
+    status: 'pending',
+    eta: '20:45 UTC'
+  },
+  {
+    id: "cp-9",
+    name: "Coastal Waypoint",
+    position: { x: 0.3, y: 0.6 },
+    status: 'pending',
+    eta: '15:30 UTC'
+  },
+  {
+    id: "cp-10",
+    name: "Final Approach",
+    position: { x: 0.78, y: 0.7 },
+    status: 'pending',
+    eta: '21:15 UTC'
   }
 ];
 
@@ -92,20 +137,20 @@ export const checkpoints = [
 export const routes = [
   {
     id: "route-1",
-    checkpoints: ["cp-1", "cp-2", "cp-3", "cp-4", "cp-5"],
+    checkpoints: ["cp-1", "cp-2", "cp-3", "cp-4", "cp-5", "cp-10"],
     color: "#4CAF50",
     isActive: true
   },
   {
     id: "route-2",
-    checkpoints: ["cp-1", "cp-3", "cp-5"],
+    checkpoints: ["cp-1", "cp-9", "cp-6", "cp-7", "cp-8", "cp-10", "cp-5"],
     color: "#FFC107",
     isActive: false,
     isDashed: true
   },
   {
     id: "route-3",
-    checkpoints: ["cp-1", "cp-5"],
+    checkpoints: ["cp-1", "cp-6", "cp-3", "cp-7", "cp-8", "cp-5"],
     color: "#2196F3",
     isActive: false,
     isDashed: true
@@ -145,6 +190,38 @@ export const activeVessels = [
     distance: "3.5nm",
     direction: "SE",
     status: "safe"
+  },
+  {
+    id: "vessel-5",
+    name: "Asian Falcon",
+    type: "Container",
+    distance: "0.8nm",
+    direction: "NW",
+    status: "warning"
+  },
+  {
+    id: "vessel-6",
+    name: "Arctic Explorer",
+    type: "Research",
+    distance: "5.2nm",
+    direction: "N",
+    status: "monitor"
+  },
+  {
+    id: "vessel-7",
+    name: "Black Pearl",
+    type: "Yacht",
+    distance: "1.1nm",
+    direction: "E",
+    status: "safe"
+  },
+  {
+    id: "vessel-8",
+    name: "Red Dragon",
+    type: "Tanker",
+    distance: "0.5nm",
+    direction: "S",
+    status: "danger"
   }
 ];
 

@@ -1,0 +1,45 @@
+I need to update an existing web interface (HTML/CSS/JS) with the following changes:
+
+Vessels Card Alignment
+
+The “Vessels” card (currently listing Atlantic Carrier, Pacific Star, Northern Light, etc.) needs better alignment.
+
+I want a flexbox or grid layout that centers or left-aligns the vessel items neatly.
+
+Each vessel entry should have a consistent spacing between the name, vessel type, and status (e.g., “Safe,” “Monitor”).
+
+If the list is scrollable, ensure the container is sized properly so that the scroll bar appears on the card without causing the rest of the page to shift.
+
+Scroll Bar Customization
+
+Change the scroll bar so it matches the overall UI style.
+
+Use custom CSS to style ::-webkit-scrollbar, ::-webkit-scrollbar-track, and ::-webkit-scrollbar-thumb.
+
+The scroll bar should be thinner, possibly 6–8px wide, with a subtle track color and a thumb color that complements the interface.
+
+On hover, the thumb can darken or lighten slightly.
+
+Navigation Map Enhancements
+
+The “Navigation Map” section should show up to 10 checkpoints.
+
+Each checkpoint is represented by a dot (circle) on the map.
+
+A dotted path (dashed or dotted line) connects these checkpoints in order.
+
+Ensure that each checkpoint can be styled differently (e.g., different color or size) to indicate progress or importance.
+
+The outline or background of the map should be styled to make the checkpoints and path more visible.
+
+If possible, include hover tooltips or minimal info when hovering over a checkpoint (e.g., checkpoint name or ETA).
+
+Card Layout & Styling
+
+Update the card components to have a consistent look and feel (borders, padding, margins, font sizes).
+
+Use a cohesive color palette that matches the rest of the interface (e.g., navy blue, gray, or a subtle gradient).
+
+If necessary, include a small header or title area on each card to clearly label it (e.g., “Vessels,” “Navigation Map,” etc.).
+
+Make sure the layout is responsive, so on smaller screens or narrower windows, the cards stack or shrink gracefully.

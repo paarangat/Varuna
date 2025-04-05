@@ -44,30 +44,39 @@ export default function ActiveVessels({ vessels }: ActiveVesselsProps) {
   };
 
   return (
-    <div className="space-y-1 overflow-y-auto max-h-[250px] pr-1">
-      {vessels.map((vessel) => (
-        <div 
-          key={vessel.id}
-          className="flex items-start justify-between p-2 rounded-md bg-[#1B263B] border border-[#415A77] mb-2"
-        >
-          <div className="flex-1">
-            <div className="flex items-center gap-1">
-              {getStatusIcon(vessel.status)}
-              <span className="font-medium text-sm">{vessel.name}</span>
-            </div>
-            <div className="text-xs text-[#778DA9] mt-1">
-              <div>{vessel.type}</div>
-              <div className="flex justify-between mt-1">
-                <span>{vessel.distance}</span>
-                <span>{vessel.direction}</span>
+    <div className="overflow-y-auto max-h-[250px] pr-1 vessel-list">
+      <div className="grid grid-cols-1 gap-2">
+        {vessels.map((vessel) => (
+          <div 
+            key={vessel.id}
+            className="flex items-center justify-between p-3 rounded-md bg-[#1B263B] border border-[#415A77] hover:bg-[#263B53] transition-colors"
+          >
+            <div className="flex-1 flex flex-col">
+              <div className="flex items-center gap-2 mb-1.5">
+                {getStatusIcon(vessel.status)}
+                <span className="font-medium text-sm">{vessel.name}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-xs text-[#778DA9]">
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider opacity-70">Type</span>
+                  <span>{vessel.type}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider opacity-70">Distance</span>
+                  <span>{vessel.distance}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] uppercase tracking-wider opacity-70">Direction</span>
+                  <span>{vessel.direction}</span>
+                </div>
+                <div className="flex items-center justify-end">
+                  {getStatusBadge(vessel.status)}
+                </div>
               </div>
             </div>
           </div>
-          <div className="ml-2">
-            {getStatusBadge(vessel.status)}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
