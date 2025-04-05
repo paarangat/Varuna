@@ -1,0 +1,48 @@
+I want to create an interactive 3D scene in JavaScript using Three.js that features a realistic ship sailing on a dynamic ocean. Please generate a complete project (HTML, CSS, and JS) for Replit with the following specifications:
+
+Scene Setup and Libraries:
+
+Create an HTML file that includes the necessary boilerplate and a <canvas> element.
+
+Include Three.js via a CDN.
+
+Use any additional Three.js libraries or shaders needed for realistic water (e.g., the Water shader from Three.js examples) and model loading (e.g., GLTFLoader for ship models).
+
+Include minimal CSS to ensure the canvas occupies the full viewport.
+
+Three.js Scene Configuration:
+
+Initialize a Three.js scene, a perspective camera, and a WebGL renderer.
+
+Add appropriate lighting (for example, a directional light to simulate sunlight and an ambient light to soften shadows).
+
+Enable OrbitControls (or a similar control scheme) for interactive rotation and zoom.
+
+Ocean Implementation:
+
+Use the Three.js water shader (or an equivalent) to create a realistic, animated ocean surface.
+
+Configure the water material to mimic realistic wave movements, reflections, and refractions.
+
+Set up parameters such as wave amplitude, speed, and distortion so that the ocean looks natural and dynamic.
+
+Optionally, add a skybox or background gradient to enhance the scene’s realism.
+
+Ship Model Integration:
+
+Load a realistic ship model (preferably in glTF format) using GLTFLoader. (You may reference your images as a guide for the ship’s appearance, e.g., hull shape, deck details, and textures.)
+
+Position the ship so that it appears to be floating on the ocean. Make sure it is correctly aligned with the water surface.
+
+Adjust the ship’s scale, rotation, and position to match the realism of the references.
+
+Optionally, add subtle animations to the ship (such as slight bobbing and rotation) to simulate being carried by the ocean waves.
+
+Interactivity and Animation:
+
+Write an animation loop that continuously updates the water’s shader (for realistic wave movement) and renders the scene.
+
+Ensure that the ship’s bobbing motion is synchronized with the water waves.
+
+Allow the user to interact with the scene using mouse controls (rotate, zoom, pan) so they can view the ship and ocean from different angles.
+
