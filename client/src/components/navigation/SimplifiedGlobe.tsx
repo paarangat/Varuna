@@ -60,55 +60,25 @@ export default function SimplifiedGlobe({ sourcePort, destinationPort, onRouteCr
       const centerY = canvas.height / 2;
       const radius = Math.min(centerX, centerY) * 0.8;
       
-      // Load and draw Earth texture
-      const earthImage = new Image();
-      earthImage.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Earthmap1000x500compac.jpg/1024px-Earthmap1000x500compac.jpg';
+      // Draw the globe
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+      ctx.fillStyle = '#142a43'; // Dark blue ocean
+      ctx.fill();
       
-      // Create pattern for earth texture
-      const pattern = ctx.createPattern(earthImage, 'repeat');
-      if (pattern) {
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(rotation);
-        
-        // Draw the textured globe
-        ctx.beginPath();
-        ctx.arc(0, 0, radius, 0, Math.PI * 2);
-        ctx.fillStyle = pattern;
-        ctx.fill();
-        
-        // Draw grid lines
-        drawGrid(ctx, radius);
-        
-        // Draw major cities
-        const cities = [
-          { name: 'New York', lat: 40.7128, lng: -74.0060 },
-          { name: 'London', lat: 51.5074, lng: -0.1278 },
-          { name: 'Tokyo', lat: 35.6762, lng: 139.6503 },
-          { name: 'Singapore', lat: 1.3521, lng: 103.8198 },
-          { name: 'Dubai', lat: 25.2048, lng: 55.2708 }
-        ];
-        
-        cities.forEach(city => {
-          const phi = (90 - city.lat) * (Math.PI / 180);
-          const theta = (city.lng + 180) * (Math.PI / 180);
-          
-          const x = -radius * Math.sin(phi) * Math.cos(theta);
-          const y = radius * Math.cos(phi);
-          
-          ctx.beginPath();
-          ctx.arc(x, y, 3, 0, Math.PI * 2);
-          ctx.fillStyle = '#FFDD00';
-          ctx.fill();
-          
-          ctx.font = '10px Arial';
-          ctx.fillStyle = '#FFFFFF';
-          ctx.textAlign = 'left';
-          ctx.fillText(city.name, x + 5, y + 5);
-        });
-        
-        ctx.restore();
-      }
+      // Draw some stylized continents
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(rotation);
+      
+      // Draw landmasses (simplified)
+      ctx.beginPath();
+      drawContinents(ctx, radius);
+      ctx.fillStyle = '#415A77';
+      ctx.fill();
+      
+      // Draw grid lines
+      drawGrid(ctx, radius);
       
       // End transformation for the rotating globe
       ctx.restore();
@@ -151,7 +121,52 @@ export default function SimplifiedGlobe({ sourcePort, destinationPort, onRouteCr
     };
   }, [sourcePort, destinationPort, rotation, onRouteCreated]);
 
-  
+  // Helper functions
+  const drawContinents = (ctx: CanvasRenderingContext2D, radius: number) => {
+    // Africa
+    ctx.moveTo(radius * 0.1, radius * -0.1);
+    ctx.bezierCurveTo(
+      radius * 0.2, radius * -0.3,
+      radius * 0.3, radius * 0.2,
+      radius * 0.1, radius * 0.3
+    );
+    
+    // Europe
+    ctx.moveTo(radius * 0.1, radius * -0.3);
+    ctx.bezierCurveTo(
+      radius * 0.05, radius * -0.2,
+      radius * -0.1, radius * -0.25,
+      radius * -0.15, radius * -0.4
+    );
+    
+    // North America
+    ctx.moveTo(radius * -0.4, radius * -0.1);
+    ctx.bezierCurveTo(
+      radius * -0.3, radius * -0.3,
+      radius * -0.1, radius * -0.4,
+      radius * -0.2, radius * -0.1
+    );
+    
+    // South America
+    ctx.moveTo(radius * -0.3, radius * 0.1);
+    ctx.bezierCurveTo(
+      radius * -0.2, radius * 0.2,
+      radius * -0.2, radius * 0.3,
+      radius * -0.1, radius * 0.4
+    );
+    
+    // Asia
+    ctx.moveTo(radius * 0.2, radius * -0.2);
+    ctx.bezierCurveTo(
+      radius * 0.3, radius * -0.1,
+      radius * 0.5, radius * -0.1,
+      radius * 0.4, radius * 0.1
+    );
+    
+    // Australia
+    ctx.moveTo(radius * 0.4, radius * 0.3);
+    ctx.arc(radius * 0.4, radius * 0.3, radius * 0.1, 0, Math.PI * 2);
+  };
 
   const drawGrid = (ctx: CanvasRenderingContext2D, radius: number) => {
     // Draw latitude lines
