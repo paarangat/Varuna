@@ -1,134 +1,162 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Compass, MapPin, Anchor, Ship } from "lucide-react";
+import { useState } from 'react';
+import { Anchor, ArrowRight } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import SimplifiedGlobe from '@/components/navigation/SimplifiedGlobe';
+import NavigationMap from '@/components/navigation/NavigationMap';
+import ActiveVessels from '@/components/navigation/ActiveVessels';
+import CourseCorrection from '@/components/navigation/CourseCorrection';
+import PortSelector from '@/components/navigation/PortSelector';
+
+// Import mock data
+import { ports, checkpoints, routes, activeVessels, courseData } from '@/lib/mockData';
+
+// Define vessel type to match ActiveVessels component
+interface Vessel {
+  id: string;
+  name: string;
+  type: string;
+  distance: string;
+  direction: string;
+  status: 'safe' | 'monitor' | 'warning' | 'danger';
+}
+
+// Cast activeVessels to the correct type
+const typedActiveVessels = activeVessels as unknown as Vessel[];
 
 export default function NavigationControl() {
+  // Use state with proper typing
+  const [sourcePort, setSourcePort] = useState<typeof ports[0] | null>(ports[0]);
+  const [destinationPort, setDestinationPort] = useState<typeof ports[0] | null>(ports[3]);
+  const [routeDetails, setRouteDetails] = useState<{ distance: number; duration: string } | null>(null);
+
+  const handleRouteCreated = (routeData: { distance: number; duration: string }) => {
+    setRouteDetails(routeData);
+  };
+
+  const handleApplyCorrection = () => {
+    alert('Course correction applied. New heading set to: ' + courseData.recommended.heading + '°');
+  };
+
+  const handleIgnoreRecommendation = () => {
+    alert('Recommendation ignored. Maintaining current heading of: ' + courseData.current.heading + '°');
+  };
+
   return (
-    <>
-      <h1 className="text-2xl font-semibold text-[#E0E1DD] mb-6">Navigation Control</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Compass className="mr-2 h-5 w-5" /> Course Control
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="p-6 flex flex-col items-center justify-center">
-              <div className="text-4xl font-bold mb-2">325°</div>
-              <div className="text-[#778DA9]">Current Heading</div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 mt-4">
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Recommended</div>
-                <div className="font-semibold">328°</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Efficiency</div>
-                <div className="font-semibold">+3%</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <MapPin className="mr-2 h-5 w-5" /> Current Position
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Latitude</div>
-                <div className="font-semibold">51° 30′ 26″ N</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Longitude</div>
-                <div className="font-semibold">0° 7′ 39″ W</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Speed</div>
-                <div className="font-semibold">12.8 knots</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">ETA</div>
-                <div className="font-semibold">06:30 UTC</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="p-4 md:p-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-[#E0E1DD] flex items-center gap-2">
+          <Anchor className="h-6 w-6" /> Navigation Control
+        </h1>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Anchor className="mr-2 h-5 w-5" /> Depth Information
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Current Depth</div>
-                <div className="font-semibold">125m</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Minimum Safe</div>
-                <div className="font-semibold">15m</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Seabed</div>
-                <div className="font-semibold">Sandy</div>
-              </div>
-              <div className="bg-[#1B263B] p-3 rounded">
-                <div className="text-sm text-[#778DA9]">Tides</div>
-                <div className="font-semibold">+0.8m</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Ship className="mr-2 h-5 w-5" /> Nearby Vessels
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center justify-between bg-[#1B263B] p-3 rounded">
-              <div>
-                <div className="font-semibold">Atlantic Carrier</div>
-                <div className="text-sm text-[#778DA9]">Cargo, 2.3nm NE</div>
-              </div>
-              <div className="px-2 py-1 bg-green-500 bg-opacity-20 text-green-500 rounded text-xs">
-                Safe
-              </div>
-            </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left column */}
+        <div className="space-y-6 lg:col-span-2">
+          <SimplifiedGlobe 
+            sourcePort={sourcePort} 
+            destinationPort={destinationPort}
+            onRouteCreated={handleRouteCreated}
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77] md:col-span-2">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Port Selection</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <PortSelector
+                  ports={ports}
+                  sourcePort={sourcePort}
+                  destinationPort={destinationPort}
+                  onSourcePortChange={setSourcePort}
+                  onDestinationPortChange={setDestinationPort}
+                />
+
+                {routeDetails && (
+                  <div className="mt-4 p-3 bg-[#1B263B] rounded-md">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-sm font-medium">Distance</div>
+                        <div className="text-xl font-bold">{routeDetails.distance} <span className="text-sm text-[#778DA9]">nautical miles</span></div>
+                      </div>
+                      <ArrowRight className="h-6 w-6 text-[#778DA9] mx-2" />
+                      <div>
+                        <div className="text-sm font-medium">Estimated Time</div>
+                        <div className="text-xl font-bold">{routeDetails.duration}</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
             
-            <div className="flex items-center justify-between bg-[#1B263B] p-3 rounded">
-              <div>
-                <div className="font-semibold">Pacific Star</div>
-                <div className="text-sm text-[#778DA9]">Tanker, 4.1nm SW</div>
-              </div>
-              <div className="px-2 py-1 bg-green-500 bg-opacity-20 text-green-500 rounded text-xs">
-                Safe
-              </div>
-            </div>
-            
-            <div className="flex items-center justify-between bg-[#1B263B] p-3 rounded">
-              <div>
-                <div className="font-semibold">Northern Light</div>
-                <div className="text-sm text-[#778DA9]">Fishing, 1.7nm W</div>
-              </div>
-              <div className="px-2 py-1 bg-yellow-500 bg-opacity-20 text-yellow-500 rounded text-xs">
-                Monitor
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            <Card className="bg-[#0D1B2A] text-[#E0E1DD] border-[#415A77]">
+              <Tabs defaultValue="table" className="w-full">
+                <CardHeader className="pb-0">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg">Vessels</CardTitle>
+                    <TabsList className="bg-[#1B263B]">
+                      <TabsTrigger value="table" className="data-[state=active]:bg-[#415A77]">
+                        List
+                      </TabsTrigger>
+                      <TabsTrigger value="status" className="data-[state=active]:bg-[#415A77]">
+                        Status
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-4">
+                  <TabsContent value="table" className="m-0">
+                    <ActiveVessels vessels={typedActiveVessels} />
+                  </TabsContent>
+                  <TabsContent value="status" className="m-0">
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center">
+                        <span>Vessels in Range</span>
+                        <span className="font-bold">{typedActiveVessels.length}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>Warning Status</span>
+                        <span className="font-bold text-amber-500">
+                          {typedActiveVessels.filter(v => v.status === 'warning').length}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>Danger Status</span>
+                        <span className="font-bold text-red-500">
+                          {typedActiveVessels.filter(v => v.status === 'danger').length}
+                        </span>
+                      </div>
+                      <Button
+                        variant="default"
+                        className="w-full mt-2 bg-[#415A77] hover:bg-[#1B263B] text-[#E0E1DD]"
+                      >
+                        Broadcast Notice
+                      </Button>
+                    </div>
+                  </TabsContent>
+                </CardContent>
+              </Tabs>
+            </Card>
+          </div>
+        </div>
+
+        {/* Right column */}
+        <div className="space-y-6">
+          <CourseCorrection 
+            courseData={courseData}
+            onApplyCorrection={handleApplyCorrection}
+            onIgnoreRecommendation={handleIgnoreRecommendation}
+          />
+          
+          <NavigationMap
+            checkpoints={checkpoints}
+            routes={routes}
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
