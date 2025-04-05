@@ -90,7 +90,6 @@ const VideoFeed = ({ title, status, source }: VideoFeedProps) => {
             muted
             onEnded={(e) => {
               e.currentTarget.pause();
-              e.currentTarget.currentTime = 0;
             }}
           />
           
