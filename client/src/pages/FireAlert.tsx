@@ -97,7 +97,9 @@ const VideoFeed = ({ title, status, source, thermalImage }: VideoFeedProps) => {
               setIsHovered(true);
             } else {
               const video = document.getElementById(`video-${title}`) as HTMLVideoElement;
-              if (video) video.pause();
+              if (video && !video.ended) {
+                video.pause();
+              }
             }
           }}
           onMouseLeave={() => {
@@ -105,7 +107,9 @@ const VideoFeed = ({ title, status, source, thermalImage }: VideoFeedProps) => {
               setIsHovered(false);
             } else {
               const video = document.getElementById(`video-${title}`) as HTMLVideoElement;
-              if (video) video.play();
+              if (video && !video.ended) {
+                video.play();
+              }
             }
           }}
         >
