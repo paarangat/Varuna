@@ -11,7 +11,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
       <div className="flex items-center space-x-6">
         {/* Logo */}
         <div className="text-[#E0E1DD] font-bold text-2xl mr-6">
-          <span className="text-[#778DA9]">V</span>ARUNA
+          <span className="text-[#778DA9]">V</span>aruna
         </div>
         
         {/* Sidebar Toggle Button */}
