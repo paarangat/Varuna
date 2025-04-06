@@ -10,8 +10,9 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
     <nav className="bg-[#0D1B2A] p-4 flex justify-between items-center shadow-md">
       <div className="flex items-center space-x-6">
         {/* Logo */}
-        <div className="text-[#E0E1DD] font-bold text-2xl mr-6">
-          <span className="text-[#778DA9]">V</span>ARUNA
+        <div className="flex items-center space-x-2 mr-6">
+          <img src="/anchor.svg" alt="Anchor" className="h-8 w-8" />
+          <img src="/varuna-logo.svg" alt="Varuna" className="h-8" />
         </div>
         
         {/* Sidebar Toggle Button */}
