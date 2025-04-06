@@ -26,9 +26,13 @@ Varuna is an advanced AI-powered decision support system designed for merchant v
 
 ## Development
 
+Deployed Link: https://varuna-ai.replit.app/
+
 ```bash
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
+
+
