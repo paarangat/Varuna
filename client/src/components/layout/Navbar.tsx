@@ -10,12 +10,8 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
     <nav className="bg-[#0D1B2A] p-4 flex justify-between items-center shadow-md">
       <div className="flex items-center space-x-6">
         {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <img src="/src/assets/anchor.svg" alt="Anchor" className="h-8 w-8" />
-          <div className="text-[#E0E1DD] font-bold text-2xl flex flex-col items-start">
-            <span>VARUNA</span>
-            <span className="text-sm font-normal" style={{ fontFamily: 'Devanagari' }}>मी नो वरुणः</span>
-          </div>
+        <div className="text-[#E0E1DD] font-bold text-2xl mr-6">
+          <span className="text-[#778DA9]">V</span>ARUNA
         </div>
         
         {/* Sidebar Toggle Button */}
