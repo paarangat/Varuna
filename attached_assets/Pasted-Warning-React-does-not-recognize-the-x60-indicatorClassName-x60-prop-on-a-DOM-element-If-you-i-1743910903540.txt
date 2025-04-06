@@ -1,0 +1,21 @@
+Warning: React does not recognize the &#x60;indicatorClassName&#x60; prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase &#x60;indicatorclassname&#x60; instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+    at div
+    at https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-GPVWVTJC.js?v=392366f1:41:13
+    at Provider (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-progress.js?v=392366f1:30:15)
+    at https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-progress.js?v=392366f1:90:7
+    at _c (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/src/components/ui/progress.tsx:21:11)
+    at div
+    at div
+    at div
+    at ShipHealth (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/src/components/dashboard/ShipHealth.tsx:22:22)
+    at div
+    at Overview
+    at Route (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=392366f1:323:16)
+    at Switch (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=392366f1:379:17)
+    at main
+    at div
+    at div
+    at Router (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/src/App.tsx?t=1743910595839&v=wapRI5kNk252vC-FrkNdI:33:41)
+    at ShipProvider (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/src/lib/ShipContext.tsx:21:32)
+    at QueryClientProvider (https://27f1dac5-e158-44cf-bbf3-73cf832f5af1-00-3uvcxku4weyh.spock.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=392366f1:2805:3)
+    at App
