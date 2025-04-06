@@ -34,13 +34,13 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
         <Link href="#" className="text-[#E0E1DD] hover:text-[#778DA9] transition">
           Settings
         </Link>
+      </div>
+      
+      {/* Profile and New Route */}
+      <div className="flex items-center space-x-4">
         <button className="bg-[#415A77] hover:bg-[#778DA9] text-[#E0E1DD] px-4 py-2 rounded transition flex items-center">
           <Plus className="h-4 w-4 mr-1" /> New Route
         </button>
-      </div>
-      
-      {/* Profile */}
-      <div className="flex items-center">
         <div className="w-10 h-10 rounded-full bg-[#415A77] flex items-center justify-center text-[#E0E1DD] cursor-pointer">
           <User className="h-5 w-5" />
         </div>
