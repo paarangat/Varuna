@@ -25,7 +25,7 @@ export default function ShipHealth() {
           </div>
           <Progress
             className="w-full bg-[#1B263B] h-2.5"
-            indicatorclassname={getStatusColor(health.engine)}
+            indicatorClassName={getStatusColor(health.engine)}
             value={health.engine}
           />
         </div>
