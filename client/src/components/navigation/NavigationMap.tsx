@@ -275,11 +275,11 @@ export default function NavigationMap({ checkpoints, routes }: NavigationMapProp
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="map" className="m-0" forceMount>
+          <TabsContent value="map" className="m-0">
             <div 
               ref={containerRef}
               className="relative w-full bg-[#1B263B] rounded-md overflow-hidden border border-[#415A77]/20" 
-              style={{ height: '320px', display: value === 'map' ? 'block' : 'none' }}
+              style={{ height: '320px' }}
             >
               <canvas 
                 ref={canvasRef} 
